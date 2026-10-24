@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Calculator Materiale</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(160deg, #18181b 0%, #232329 50%, #18181b 100%);
+      min-height: 100vh;
+      color: #fff;
+      padding: 12px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 1.4rem;
+      margin: 10px 0 4px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #9fb8c4;
+      font-size: 0.85rem;
+      margin-bottom: 14px;
+    }
+
+    .card {
+      background: linear-gradient(145deg, rgba(82, 82, 91, 0.25),
+          rgba(24, 24, 27, 0.9));
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      border-radius: 16px;
+      padding: 12px;
+      margin-bottom: 14px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+      table-layout: auto;
+    }
+
+    th {
+      background: linear-gradient(180deg, #d4af37 0%, #b8941f 50%, #8a6d14 100%);
+      color: #18181b;
+      padding: 10px 8px;
+      text-align: left;
+      position: sticky;
+      top: 0;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    th:nth-child(3),
+    th:nth-child(4),
+    th:nth-child(5),
+    td:nth-child(3),
+    td:nth-child(4),
+    td:nth-child(5) {
+      text-align: right;
+    }
+
+    td {
+      padding: 8px 6px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    tr:nth-child(even) td {
+      background: #18181B;
+      opacity: 1;
+      ;
+    }
+
+    td .name {
+      outline: none;
+      white-space: normal;
+      word-break: break-word;
+      padding: 4px;
+      border-radius: 6px;
+      min-height: 1.2em;
+    }
+
+    td .name:focus {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    td input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 0.95rem;
+      padding: 4px;
+      border-radius: 6px;
+      outline: none;
+      text-align: inherit;
+    }
+
+    td input:focus {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
+
+    .sum-cell {
+      color: #f4d35e;
+      -webkit-text-fill-color: #f4d35e;
+      white-space: nowrap;
+      text-align: right;
+      font-weight: 600;
+    }
+
+
+    .btn {
+      width: 100%;
+      padding: 13px;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+
+    .btn-add {
+      background: #27ae60;
+      color: #fff;
+    }
+
+    .btn-reset {
+      background: #e67e22;
+      color: #fff;
+    }
+
+    .btn-clear {
+      background: #8e44ad;
+      color: #fff;
+    }
+
+
+    .totals-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .tot-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 1rem;
+    }
+
+    .tot-row input {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      border-radius: 8px;
+      padding: 8px;
+      width: 130px;
+      text-align: right;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .grand {
+      font-size: 1.15rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #D4AF37, #f4e5a1);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .profit-pos {
+      color: #2ecc71 !important;
+    }
+
+    .profit-neg {
+      color: #e74c3c !important;
+    }
+
+    @media (min-width: 700px) {
+      body {
+        padding: 24px;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+    }
+
+    td:first-child,
+    th:first-child {
+      width: 100%;
+    }
+
+    td:nth-child(2),
+    td:nth-child(3) {
+      white-space: nowrap;
+    }
+
+    td input.name {
+      min-width: 0;
+      width: 100%;
+    }
+  </style>
+  <base target="_blank">
+</head>
+
+<body>
+  <div class="container">
+    <h1>📋 Lista Materiale</h1>
+    <p class="subtitle">Datele se salvează automat pe acest dispozitiv</p>
+
+    <div class="card table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Denumire</th>
+            <th>Cant.</th>
+            <th>Preț (buc.) /m2</th>
+            <th>Suma</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+
+    <button class="btn btn-add" onclick="addRow()">➕ Adaugă material</button>
+    <button class="btn btn-reset" onclick="resetData()">🔄 Resetează la lista inițială</button>
+    <button class="btn btn-clear" onclick="clearValues()">🧹 Șterge prețuri și cantități</button>
+
+    <div class="card">
+      <div class="totals-grid">
+        <div class="tot-row"><span>Total materiale</span><span class="grand" id="totalMat">0.00 MDL</span></div>
+        <div class="tot-row"><span>💼 Cost lucrare (venit)</span><input type="number" id="labor" value="0"
+            oninput="saveAndCalc()"></div>
+        <div class="tot-row"><span>💰 Profit (venit − materiale)</span><span class="grand" id="profit">0.00 MDL</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const DEFAULT_DATA = [
+      ["Cesti triunghi 38", 12, 19], ["Cesti triunghi 51", 5, 20],
+      ["Cesti R patrat 38", 26, 19], ["Cesti R patrate 51", 22, 20],
+      ["Ceată # 40 40", 7, 27], ["Cesti perete 51", 10, 0],
+      ["Bile 100 /51 /2", 3, 120], ["Bile 50 2 /16", 16, 50],
+      ["Bile 50", 48, 45], ["Bile 30 1/16", 48, 24],
+      ["Lodacica 38 v", 12, 60], ["Lodacica 51 v", 9, 70],
+      ["Lodacica 51 n", 9, 70], ["Lodacica 38 n", 26, 60],
+      ["Cot 51", 7, 50], ["Inele 51", 12, 17],
+      ["Bila decorativa stalp 70", 6, 75],
+      ["Bila decorativ nou", 0, 160],
+      ["Capac", 4, 12], ["Flansa 38", 0, 20],
+      ["Tiava 51", 0, 108], ["Tiava 38", 0, 78],
+      ["Tiava 16", 0, 30], ["Tiava 40/40", 0, 105],
+      ["Tiava 50/25", 0, 100], ["Tiava 12", 0, 28]
+    ];
+
+    const fmt = n => (Number(n) || 0).toFixed(2) + " MDL";
+
+    function load() {
+      try {
+        const raw = localStorage.getItem("materiale_v1");
+        if (raw) {
+          const d = JSON.parse(raw);
+          render(Array.isArray(d.rows) ? d.rows : DEFAULT_DATA.map(r => [...r]));
+          document.getElementById("labor").value = d.labor ?? 0;
+        } else {
+          render(DEFAULT_DATA.map(r => [...r]));
+        }
+      } catch (e) {
+        render(DEFAULT_DATA.map(r => [...r]));
+        document.getElementById("labor").value = 0;
+      }
+      calc();
+    }
+
+    function save() {
+      const rows = [...document.querySelectorAll("#tbody tr")].map(tr => [
+        tr.querySelector(".name").textContent.trim(),
+        +tr.querySelector(".qty").value || 0,
+        +tr.querySelector(".price").value || 0
+      ]);
+      localStorage.setItem("materiale_v1", JSON.stringify({
+        rows,
+        labor: +document.getElementById("labor").value || 0
+      }));
+    }
+
+    function render(rows) {
+      const tb = document.getElementById("tbody");
+      tb.innerHTML = "";
+      rows.forEach(r => tb.appendChild(makeRow(r[0], r[1], r[2])));
+    }
+
+
+    function makeRow(name, qty, price) {
+      const tr = document.createElement("tr");
+
+      const tdName = document.createElement("td");
+      const divName = document.createElement("div");
+      divName.className = "name";
+      divName.contentEditable = "true";
+      divName.textContent = name;
+      divName.addEventListener("input", saveAndCalc);
+      tdName.appendChild(divName);
+
+      const tdQty = document.createElement("td");
+      const inputQty = document.createElement("input");
+      inputQty.className = "qty";
+      inputQty.type = "number";
+      inputQty.min = "0";
+      inputQty.step = "any";
+      inputQty.value = qty;
+      inputQty.addEventListener("input", saveAndCalc);
+      tdQty.appendChild(inputQty);
+
+      const tdPrice = document.createElement("td");
+      const inputPrice = document.createElement("input");
+      inputPrice.className = "price";
+      inputPrice.type = "number";
+      inputPrice.min = "0";
+      inputPrice.step = "any";
+      inputPrice.value = price;
+      inputPrice.addEventListener("input", saveAndCalc);
+      tdPrice.appendChild(inputPrice);
+
+      const tdSum = document.createElement("td");
+      tdSum.className = "sum-cell";
+      tdSum.textContent = "0.00 MDL";
+
+      tr.append(tdName, tdQty, tdPrice, tdSum);
+      return tr;
+    }
+
+
+    function addRow() {
+      document.getElementById("tbody").appendChild(makeRow("", 0, 0));
+      save();
+    }
+
+    function resetData() {
+      if (confirm("Sigur vrei să ștergi modificările și să revii la lista inițială?")) {
+        localStorage.removeItem("materiale_v1");
+        render(DEFAULT_DATA.map(r => [...r]));
+        document.getElementById("labor").value = 0;
+        calc(); save();
+      }
+    }
+
+    function clearValues() {
+      if (confirm("Sigur vrei să ștergi toate prețurile și cantitățile? Denumirile rămân.")) {
+        document.querySelectorAll("#tbody tr").forEach(tr => {
+          tr.querySelector(".qty").value = 0;
+          tr.querySelector(".price").value = 0;
+        });
+        saveAndCalc();
+      }
+
+    }
+
+    function saveAndCalc() { save(); calc(); }
+
+    function calc() {
+      let total = 0;
+      document.querySelectorAll("#tbody tr").forEach(tr => {
+        const s = (+tr.querySelector(".qty").value || 0) * (+tr.querySelector(".price").value || 0);
+        tr.querySelector(".sum-cell").textContent = fmt(s);
+        total += s;
+      });
+      const labor = +document.getElementById("labor").value || 0;
+      const profit = labor - total;
+      document.getElementById("totalMat").textContent = fmt(total);
+      const p = document.getElementById("profit");
+      p.textContent = fmt(profit);
+      p.className = "grand " + (profit >= 0 ? "profit-pos" : "profit-neg");
+    }
+
+    load();
+  </script>
+
+</body>
+
+</html>
